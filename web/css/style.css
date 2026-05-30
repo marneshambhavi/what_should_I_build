@@ -1,0 +1,524 @@
+body
+{
+margin:0;
+padding:0;
+height:100vh; /* Changed from 100% to 100vh to fill screen */
+
+font-family: 'Audiowide', sans-serif;
+}
+
+.central-container
+{
+ text-align: center;
+}
+
+.home-page
+{
+/* Using a relative path for the background image */
+background-image:url("../images/bgimage3.jpg");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 100%;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.title
+{
+color:white;
+font-size:56px; /* Fixed typo from fon-size */
+margin-bottom: 40px;
+letter-spacing: 2px;
+}
+
+.button
+{
+display: flex;
+justify-content: center;
+gap: 30px;
+}
+
+.retro-btn {
+    font-family: 'Audiowide', sans-serif;
+    background-color: #a8f0ef; /* The light cyan/blue color from your image */
+    color: #000;               /* Black text */
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    text-decoration: none;     /* Removes the underline from the <a> tag */
+
+    /* The border and shape */
+    border: 4px solid #000;    /* Thick black border */
+    border-radius: 40px;       /* Pill shape */
+
+    /* The 3D Pop Effect: A solid, unblurred black shadow pushed to the bottom right */
+    box-shadow: 8px 8px 0px 0px #000;
+
+    /* Smooth animation when hovered or clicked */
+    transition: all 0.1s ease-in-out;
+    display: inline-block;
+}
+/* What happens when the user hovers over the button */
+.retro-btn:hover {
+    background-color: #8be1e0; /* Slightly darker cyan on hover */
+    /* Push the button down slightly and shrink the shadow */
+    transform: translate(2px, 2px);
+    box-shadow: 6px 6px 0px 0px #000;
+}
+/* What happens when the user actively clicks the button */
+.retro-btn:active {
+    /* Push the button all the way down, flattening the shadow */
+    transform: translate(8px, 8px);
+    box-shadow: 0px 0px 0px 0px #000;
+}
+
+/* ========================================= */
+/* --- LOGIN PAGE STYLES ---                 */
+/* ========================================= */
+.login-page
+{
+background-image:url("../images/bgimage4.jpg");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 100%;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.login-title {
+    color: white;
+    font-size: 36px;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    font-weight: normal; /* To match the slightly thinner look in your image */
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px; /* Spacing between the form fields */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 320px; /* Width of the input fields */
+}
+
+.input-group label {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 8px;
+    margin-left: 10px; /* Aligns slightly inside to match the pill shape */
+    letter-spacing: 1px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #FFFCF1; /* The light grey color from your design */
+    border: none;
+    border-radius: 40px; /* Makes them pill-shaped */
+    font-family: 'Audiowide', sans-serif;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box; /* Ensures padding doesn't mess up the width */
+}
+
+/* Adjustments for the login button specifically, if needed */
+.login-submit-btn {
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+/* --- Registration page style ---                 */
+
+.register-page
+{
+background-image:url("../images/bgimage4.jpg");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 100%;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px; /* Spacing between the form fields */
+}
+.register-title {
+    color: white;
+    font-size: 36px;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    font-weight: normal; /* To match the slightly thinner look in your image */
+}
+.register-submit-btn {
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+/* ========================================= */
+/* --- DASHBOARD PAGE STYLES ---             */
+/* ========================================= */
+
+:root {
+    --primary-color: #a370f0;
+    --primary-hover: #b88df5;
+    --text-main: #f0f0f0;
+    --text-muted: #a0a0c0;
+    --glass-bg: rgba(60, 40, 100, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-blur: blur(16px);
+    --success-color: #4ade80;
+}
+
+.dashboard-page {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Audiowide', sans-serif;
+    color: var(--text-main);
+    background-color: #1a0b2e; /* Fallback color */
+    background-image: url('../images/bgimage8.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-size: 1.2rem;
+}
+
+.dashboard-page h1, 
+.dashboard-page h2, 
+.dashboard-page h3, 
+.dashboard-page h4, 
+.dashboard-page h5, 
+.dashboard-page h6, 
+.dashboard-page .logo-text, 
+.dashboard-page .btn-primary {
+    font-family: 'Audiowide', sans-serif;
+    font-weight: 400;
+}
+
+/* Glassmorphism Utility */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-page .btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard-page .btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 0 15px var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* --- DASHBOARD LAYOUT --- */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr 300px;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px;
+    min-height: 100vh;
+}
+
+/* --- LEFT SIDEBAR --- */
+.sidebar-left {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.logo-area {
+    position: relative;
+    padding-left: 20px;
+    color: #F8B976;
+}
+
+.logo-area .logo-text {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 20px;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 1.1rem;
+    padding: 10px 0;
+    transition: all 0.3s;
+    opacity: 0.8;
+}
+
+.nav-link:hover, .nav-link.active {
+    opacity: 1;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    transform: translateX(5px);
+}
+
+/* --- CENTER CONTENT --- */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main-header .greeting h1 {
+    font-size: 2.5rem;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.main-header .greeting p {
+    color: var(--text-main);
+    margin: 0;
+}
+
+.center-glass-panel {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    text-align: center;
+}
+
+/* --- RIGHT SIDEBAR --- */
+.sidebar-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 24px;
+}
+
+.user-info .username {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 1rem;
+    color:#F8B976;
+}
+
+.widget {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.widget-title {
+    font-size: 1.2rem;
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+.widget-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Mood Emojis */
+.mood-emojis {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.mood-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    filter: grayscale(0.5);
+}
+
+.mood-btn:hover, .mood-btn.active {
+    transform: scale(1.2);
+    filter: grayscale(0);
+}
+
+/* Lists */
+.achievement-list, .project-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-left: 0;
+    margin: 0;
+}
+
+.achievement-list li, .project-list li {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 12px 16px;
+    border-radius: 10px;
+}
+
+.item-text h4 {
+    font-size: 1.1rem;
+    margin: 0 0 4px 0;
+}
+
+.item-text p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.text-green {
+    color: var(--success-color) !important;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1100px) {
+    .dashboard-layout {
+        grid-template-columns: 200px 1fr;
+    }
+    .sidebar-right {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .sidebar-right .widget {
+        flex: 1;
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+    .sidebar-left {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .side-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+
+/* ========================================= */
+/* --- MODAL AND INTERACTIVITY OVERRIDES --- */
+/* ========================================= */
+
+/* Shift Generate Idea Up */
+.dashboard-layout {
+    padding-top: 20px;
+}
+.center-glass-panel {
+    align-items: flex-start;
+    padding-top: 60px;
+    min-height: auto;
+    padding-bottom: 60px;
+}
+
+/* --- MODAL OVERLAY --- */
+.modal-overlay {
+    display: none; /* Hidden by default, toggled via JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    padding: 40px;
+    text-align: center;
+    background: rgba(40, 20, 80, 0.8);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #ffd700;
+}
+
+/* Smooth pop-in animation */
+.modal-content {
+    animation: modalPop 0.3s ease-out forwards;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
