@@ -2,14 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Pixel Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="dashboard-page">
-    <div style="padding: 50px; text-align: center; color: white;">
-        <h1>User Profile</h1>
-        <p>This is a placeholder for the Profile page.</p>
-        <a href="index.html" class="btn-primary" style="display: inline-block; width: auto;">Back to Dashboard</a>
+<body class="dashboard-page" style="background-color: #1a0b2e;">
+    
+    <div class="dashboard-layout">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar-left">
+            <div class="logo-area">
+                <h2 class="logo-text">What<br>Should I<br>Build ?</h2>
+                <div class="moon-glow"></div>
+            </div>
+            
+            <nav class="side-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link">My Projects</a>
+                <a href="achievements.html" class="nav-link">Achievements</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+        </aside>
+
+        <!-- CENTER CONTENT -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="greeting">
+                    <h1>User Profile</h1>
+                    <p>Manage your account settings and stats!</p>
+                </div>
+            </header>
+            
+            <div class="glass-panel" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.15); padding: 40px; border-radius: 20px; text-align: center;">
+                <div style="margin-bottom: 25px;">
+                    <img src="images/userimage.png" alt="Profile avatar" style="width: 120px; height: 120px; border-radius: 20px; border: 4px solid #ffd700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);">
+                </div>
+                
+                <h2 class="username-display" style="color: #ffd700; font-family: 'Audiowide', sans-serif; font-size: 2rem; margin-top: 0; margin-bottom: 10px;">Username</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;"><i class="fa-solid fa-crown" style="color: #ffd700;"></i> Master Creator Account</p>
+                
+                <div style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; text-align: left; background: rgba(0,0,0,0.2); padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                        <span style="color: var(--text-muted);"><i class="fa-solid fa-circle-user" style="margin-right: 8px;"></i> User Rank:</span>
+                        <span style="color: white; font-weight: bold;">Senior Architect</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                        <span style="color: var(--text-muted);"><i class="fa-solid fa-envelope" style="margin-right: 8px;"></i> Email Status:</span>
+                        <span style="color: #4ade80; font-weight: bold;">Verified</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);"><i class="fa-solid fa-shield-halved" style="margin-right: 8px;"></i> Security Layer:</span>
+                        <span style="color: #4ade80; font-weight: bold;">Active</span>
+                    </div>
+                </div>
+
+                <!-- Custom styled Logout / Back Buttons -->
+                <div style="display: flex; justify-content: center; gap: 20px; max-width: 400px; margin: 0 auto;">
+                    <a href="index.html" class="btn-primary" style="flex: 1; padding: 12px; font-size: 1rem; background-color: #555;">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                    <button id="logout-btn" class="btn-primary" style="flex: 1; padding: 12px; font-size: 1rem; background-color: #ef4444;">
+                        <i class="fa-solid fa-power-off"></i> Log Out
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
+
+    <!-- JS for basic profile session and logout -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch session
+            fetch('GetSessionServlet')
+                .then(response => response.text())
+                .then(username => {
+                    if (username && username.trim() !== "" && username !== "Guest") {
+                        const displays = document.querySelectorAll('.username-display');
+                        displays.forEach(d => d.innerText = username);
+                    }
+                })
+                .catch(err => console.error("Error fetching session:", err));
+
+            // Logout execution
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                if (confirm("Are you sure you want to log out?")) {
+                    // Redirect to login or call a logout servlet if you have one.
+                    // If no special logout servlet, we can simply redirect to login page.
+                    window.location.href = 'login.html';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

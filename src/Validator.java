@@ -2,8 +2,8 @@ import java.util.regex.Pattern;
 
 public class Validator {
     
-    // Username: Exactly 10 to 15 characters long
-    private static final String USERNAME_PATTERN = "^.{10,15}$"; 
+    // Username: Exactly 8 to 15 characters long
+    private static final String USERNAME_PATTERN = "^.{8,15}$"; 
     
     // Email: Standard email format validation
     private static final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@(.+)$";

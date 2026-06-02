@@ -2,14 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Pixel Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="dashboard-page">
-    <div style="padding: 50px; text-align: center; color: white;">
-        <h1>About</h1>
-        <p>This is a placeholder for the About page.</p>
-        <a href="index.html" class="btn-primary" style="display: inline-block; width: auto;">Back to Dashboard</a>
+<body class="dashboard-page" style="background-color: #1a0b2e;">
+    
+    <div class="dashboard-layout">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar-left">
+            <div class="logo-area">
+                <h2 class="logo-text">What<br>Should I<br>Build ?</h2>
+                <div class="moon-glow"></div>
+            </div>
+            
+            <nav class="side-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link">My Projects</a>
+                <a href="achievements.html" class="nav-link">Achievements</a>
+                <a href="about.html" class="nav-link active">About</a>
+            </nav>
+        </aside>
+
+        <!-- CENTER CONTENT -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="greeting">
+                    <h1>About The Project</h1>
+                    <p>Learn more about the ultimate Idea Generation Engine!</p>
+                </div>
+            </header>
+            
+            <div class="glass-panel" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.15); padding: 35px; line-height: 1.8; border-radius: 20px;">
+                <h2 style="color: #ffd700; font-family: 'Audiowide', sans-serif; font-size: 1.8rem; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                    <i class="fa-solid fa-gears" style="color: #ffd700; margin-right: 10px;"></i> How It Works
+                </h2>
+                <p style="font-size: 1.15rem; color: #e2e8f0; margin-bottom: 25px;">
+                    <strong>What Should I Build?</strong> is a highly interactive, personalized, and robust developer's sandbox designed to cure developer's block. Built using a modern Java Servlet API and backed by a high-performance relational database, it customizes suggestions based on your exact choice of technology stack, project difficulty level, and planned completion timeline.
+                </p>
+                
+                <h3 style="color: #F8B976; font-family: 'Audiowide', sans-serif; font-size: 1.4rem; margin-bottom: 15px;">Key Features</h3>
+                <ul style="color: #cbd5e1; font-size: 1.1rem; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px;">
+                    <li><strong style="color: white;"><i class="fa-solid fa-shuffle" style="margin-right: 8px;"></i> Smart Fallback Algorithm:</strong> If an exact preference match isn't found in our curated DB, the algorithm intelligently eases timeline constraints to return relevant stack results rather than failing.</li>
+                    <li><strong style="color: white;"><i class="fa-solid fa-dice" style="margin-right: 8px;"></i> Controlled Shuffle:</strong> Users are granted up to three shuffles per generation request, keeping selections fresh and encouraging spontaneity.</li>
+                    <li><strong style="color: white;"><i class="fa-solid fa-floppy-disk" style="margin-right: 8px;"></i> Persistent Cloud Vault:</strong> Save your favorite suggestions instantly into your secure dashboard vault.</li>
+                </ul>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="index.html" class="btn-primary" style="display: inline-block; width: auto; padding: 15px 40px;">
+                        <i class="fa-solid fa-arrow-right"></i> Start Generating Ideas
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="sidebar-right">
+            <!-- Profile Badge -->
+            <a href="profile.html" style="text-decoration: none; color: inherit;">
+                <div class="profile-badge glass-panel" style="cursor: pointer; transition: transform 0.2s;">
+                    <div class="avatar">
+                        <img src="images/userimage.png" alt="User Avatar" style="width: 40px; height: 40px; border-radius: 8px;">
+                    </div>
+                    <div class="user-info">
+                        <span class="username">Username</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Tech Details Widget -->
+            <div class="widget glass-panel">
+                <h3 class="widget-title">Core Stack</h3>
+                <div style="display: flex; flex-direction: column; gap: 12px; padding-top: 10px; font-size: 1.05rem;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Backend:</span>
+                        <span style="color: #ffd700;">Jakarta Servlet</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Database:</span>
+                        <span style="color: #ffd700;">MySQL DB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Frontend:</span>
+                        <span style="color: #ffd700;">Glassmorphism CSS</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </div>
+
+    <!-- JS for basic profile session setup -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('GetSessionServlet')
+                .then(response => response.text())
+                .then(username => {
+                    if (username && username.trim() !== "" && username !== "Guest") {
+                        const usernameSpan = document.querySelector('.username');
+                        if (usernameSpan) usernameSpan.innerText = username;
+                    }
+                })
+                .catch(err => console.error("Error fetching session:", err));
+        });
+    </script>
 </body>
 </html>

@@ -2,14 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - Pixel Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="dashboard-page">
-    <div style="padding: 50px; text-align: center; color: white;">
-        <h1>My Projects</h1>
-        <p>This is a placeholder for the My Projects page.</p>
-        <a href="index.html" class="btn-primary" style="display: inline-block; width: auto;">Back to Dashboard</a>
+<body class="dashboard-page" style="background-color: #1a0b2e;">
+    
+    <div class="dashboard-layout">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar-left">
+            <div class="logo-area">
+                <h2 class="logo-text">What<br>Should I<br>Build ?</h2>
+                <div class="moon-glow"></div>
+            </div>
+            
+            <nav class="side-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link active">My Projects</a>
+                <a href="achievements.html" class="nav-link">Achievements</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+        </aside>
+
+        <!-- CENTER CONTENT -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="greeting">
+                    <h1>My Saved Projects</h1>
+                    <p>All your premium curated ideas in one place!</p>
+                </div>
+            </header>
+            
+            <!-- Grid of saved projects -->
+            <div class="projects-grid" id="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                <!-- Loading State -->
+                <div class="glass-panel" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 2.5rem; color: #ffd700; margin-bottom: 15px;"></i>
+                    <h3>Loading your saved projects...</h3>
+                </div>
+            </div>
+        </main>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="sidebar-right">
+            <!-- Profile Badge -->
+            <a href="profile.html" style="text-decoration: none; color: inherit;">
+                <div class="profile-badge glass-panel" style="cursor: pointer; transition: transform 0.2s;">
+                    <div class="avatar">
+                        <img src="images/userimage.png" alt="User Avatar" style="width: 40px; height: 40px; border-radius: 8px;">
+                    </div>
+                    <div class="user-info">
+                        <span class="username">Username</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Quick Stats Widget -->
+            <div class="widget glass-panel">
+                <h3 class="widget-title">Statistics</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 10px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Saved Ideas:</span>
+                        <span id="saved-count" style="color: #ffd700; font-weight: bold;">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Status:</span>
+                        <span class="text-green">Active Creator</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mood Tracker -->
+            <div class="widget glass-panel">
+                <h3 class="widget-title">Mood Tracker</h3>
+                <p class="widget-subtitle">Tell us how's your mood today ?</p>
+                <div class="mood-emojis">
+                    <button class="mood-btn" data-mood="happy">😃</button>
+                    <button class="mood-btn" data-mood="calm">😌</button>
+                    <button class="mood-btn" data-mood="focused">🤔</button>
+                    <button class="mood-btn" data-mood="stressed">😫</button>
+                    <button class="mood-btn" data-mood="tired">😴</button>
+                </div>
+            </div>
+        </aside>
     </div>
+
+    <!-- JS script specifically for projects page -->
+    <script src="js/projects.js"></script>
 </body>
 </html>

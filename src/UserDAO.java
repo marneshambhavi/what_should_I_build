@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class UserDAO {
 
     // --- REGISTRATION LOGIC ---
-    public boolean registerUser(String username, String email, String password) {
+    public boolean registerUser(String username, String email, String password, String description) {
         // 1. Validate inputs before hitting the database
         if (!Validator.isValidUsername(username) || 
             !Validator.isValidEmail(email) || 
@@ -16,7 +16,7 @@ public class UserDAO {
         }
 
         // 2. SQL Query to insert into the 'users' table
-        String query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+        String query = "INSERT INTO users (username, email, password, description) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -24,6 +24,7 @@ public class UserDAO {
             pstmt.setString(1, username);
             pstmt.setString(2, email);
             pstmt.setString(3, password); // Note: In a real app, you should hash this password!
+            pstmt.setString(4, description);
 
             // 3. Execute the query
             int rowsAffected = pstmt.executeUpdate();

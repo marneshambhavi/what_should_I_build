@@ -6,7 +6,7 @@ public class Main {
         UserDAO userDAO = new UserDAO();
 
         System.out.println("=== Test Registration ===");
-        System.out.print("Enter a username (10-15 chars): ");
+        System.out.print("Enter a username (8-15 chars): ");
         String username = scanner.nextLine();
 
         System.out.print("Enter an email: ");
@@ -15,8 +15,11 @@ public class Main {
         System.out.print("Enter a password (1 upper, 1 lower, 1 number, min 8 chars): ");
         String password = scanner.nextLine();
 
+        System.out.print("Describe what you are building today: ");
+        String description = scanner.nextLine();
+
         // Attempt Registration
-        boolean isRegistered = userDAO.registerUser(username, email, password);
+        boolean isRegistered = userDAO.registerUser(username, email, password, description);
 
         if (isRegistered) {
             System.out.println("\nSUCCESS! User was registered and saved to the database.");
