@@ -41,53 +41,11 @@
                 </div>
             </header>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px;">
-                <!-- Achievement 1 -->
-                <div class="glass-panel" style="background: rgba(0, 0, 0, 0.4); display: flex; align-items: center; gap: 20px; border-left: 5px solid #ffd700;">
-                    <div style="font-size: 2.5rem; color: #ffd700; background: rgba(255, 215, 0, 0.1); padding: 15px; border-radius: 50%;">
-                        <i class="fa-solid fa-lightbulb"></i>
-                    </div>
-                    <div>
-                        <h4 style="color: #ffd700; margin: 0 0 5px 0; font-family: 'Audiowide', sans-serif;">First Idea</h4>
-                        <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">Generated your first creative idea.</p>
-                        <span style="font-size: 0.85rem; color: #4ade80; font-weight: bold; display: block; margin-top: 8px;">Unlocked</span>
-                    </div>
-                </div>
-
-                <!-- Achievement 2 -->
-                <div class="glass-panel" style="background: rgba(0, 0, 0, 0.4); display: flex; align-items: center; gap: 20px; border-left: 5px solid #a8f0ef;">
-                    <div style="font-size: 2.5rem; color: #a8f0ef; background: rgba(168, 240, 239, 0.1); padding: 15px; border-radius: 50%;">
-                        <i class="fa-solid fa-fire"></i>
-                    </div>
-                    <div>
-                        <h4 style="color: #a8f0ef; margin: 0 0 5px 0; font-family: 'Audiowide', sans-serif;">Consistency</h4>
-                        <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">Generated 5 ideas in one session.</p>
-                        <span style="font-size: 0.85rem; color: #a8f0ef; font-weight: bold; display: block; margin-top: 8px;">Unlocked</span>
-                    </div>
-                </div>
-
-                <!-- Achievement 3 (In Progress / Locked) -->
-                <div class="glass-panel" style="background: rgba(0, 0, 0, 0.25); display: flex; align-items: center; gap: 20px; border-left: 5px solid #555; opacity: 0.85;">
-                    <div style="font-size: 2.5rem; color: #888; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 50%;">
-                        <i class="fa-solid fa-code"></i>
-                    </div>
-                    <div>
-                        <h4 style="color: #888; margin: 0 0 5px 0; font-family: 'Audiowide', sans-serif;">Polylingual</h4>
-                        <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Generate project ideas using 3 different stack choices.</p>
-                        <span style="font-size: 0.85rem; color: #a0a0c0; font-weight: bold; display: block; margin-top: 8px;">Locked (In Progress 2/3)</span>
-                    </div>
-                </div>
-
-                <!-- Achievement 4 (Locked) -->
-                <div class="glass-panel" style="background: rgba(0, 0, 0, 0.25); display: flex; align-items: center; gap: 20px; border-left: 5px solid #555; opacity: 0.85;">
-                    <div style="font-size: 2.5rem; color: #888; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 50%;">
-                        <i class="fa-solid fa-vault"></i>
-                    </div>
-                    <div>
-                        <h4 style="color: #888; margin: 0 0 5px 0; font-family: 'Audiowide', sans-serif;">Idea Hoarder</h4>
-                        <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Save 10 premium projects into your private vault.</p>
-                        <span style="font-size: 0.85rem; color: #a0a0c0; font-weight: bold; display: block; margin-top: 8px;">Locked (In Progress 1/10)</span>
-                    </div>
+            <div id="achievements-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px;">
+                <!-- Dynamically populated achievements -->
+                <div class="glass-panel" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 2.5rem; color: #ffd700; margin-bottom: 15px;"></i>
+                    <h3>Loading achievements...</h3>
                 </div>
             </div>
         </main>
@@ -108,28 +66,16 @@
 
             <!-- Quick Info -->
             <div class="widget glass-panel">
-                <h3 class="widget-title">Gamer Level</h3>
+                <h3 class="widget-title">User Level</h3>
                 <div style="text-align: center; padding: 15px 0;">
-                    <div style="font-size: 2.8rem; font-weight: bold; color: #ffd700; text-shadow: 0 0 10px rgba(255,215,0,0.5);">Level 2</div>
-                    <p style="color: var(--text-muted); margin: 5px 0 0 0; font-size: 0.95rem;">2 / 4 Badges Unlocked</p>
+                    <div id="user-level-val" style="font-size: 2.8rem; font-weight: bold; color: #ffd700; text-shadow: 0 0 10px rgba(255,215,0,0.5);">Level 1</div>
+                    <p id="badges-unlocked-text" style="color: var(--text-muted); margin: 5px 0 0 0; font-size: 0.95rem;">0 / 4 Badges Unlocked</p>
                 </div>
             </div>
         </aside>
     </div>
 
-    <!-- JS for basic profile session setup -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('GetSessionServlet')
-                .then(response => response.text())
-                .then(username => {
-                    if (username && username.trim() !== "" && username !== "Guest") {
-                        const usernameSpan = document.querySelector('.username');
-                        if (usernameSpan) usernameSpan.innerText = username;
-                    }
-                })
-                .catch(err => console.error("Error fetching session:", err));
-        });
-    </script>
+    <!-- JS for achievements -->
+    <script src="js/achievements.js?v=1.1"></script>
 </body>
 </html>

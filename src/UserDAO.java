@@ -58,4 +58,40 @@ public class UserDAO {
             return false;
         }
     }
+
+    // --- PROFILE LOGIC ---
+    public String getEmailByUsername(String username) {
+        String query = "SELECT email FROM users WHERE username = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+             
+            pstmt.setString(1, username);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("email");
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean updateEmail(String username, String newEmail) {
+        if (!Validator.isValidEmail(newEmail)) {
+            return false;
+        }
+        String query = "UPDATE users SET email = ? WHERE username = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+             
+            pstmt.setString(1, newEmail);
+            pstmt.setString(2, username);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

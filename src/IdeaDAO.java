@@ -24,8 +24,27 @@ public class IdeaDAO {
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                 pstmt.executeUpdate();
             }
+
+            // Safe table alterations to add new columns if they do not exist
+            try (java.sql.Statement stmt = conn.createStatement()) {
+                try {
+                    stmt.executeUpdate("ALTER TABLE chosen_ideas ADD COLUMN tech_stack VARCHAR(100) DEFAULT NULL");
+                } catch (SQLException e) { /* Column might already exist */ }
+                try {
+                    stmt.executeUpdate("ALTER TABLE chosen_ideas ADD COLUMN completed TINYINT DEFAULT 0");
+                } catch (SQLException e) { /* Column might already exist */ }
+                try {
+                    stmt.executeUpdate("ALTER TABLE chosen_ideas ADD COLUMN saved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
+                } catch (SQLException e) { /* Column might already exist */ }
+                try {
+                    stmt.executeUpdate("ALTER TABLE chosen_ideas ADD COLUMN deadline TIMESTAMP NULL DEFAULT NULL");
+                } catch (SQLException e) { /* Column might already exist */ }
+                try {
+                    stmt.executeUpdate("ALTER TABLE chosen_ideas ADD COLUMN completed_at TIMESTAMP NULL DEFAULT NULL");
+                } catch (SQLException e) { /* Column might already exist */ }
+            }
         } catch (Exception e) {
-            System.err.println("Auto-creating chosen_ideas failed: " + e.getMessage());
+            System.err.println("Auto-creating/altering chosen_ideas failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -122,15 +141,33 @@ public class IdeaDAO {
     }
 
     // --- SAVE CHOSEN IDEA ---
-    public boolean saveChosenIdea(String username, String title, String description) {
-        String query = "INSERT INTO chosen_ideas (username, idea_title, idea_description) VALUES (?, ?, ?)";
+    public boolean saveChosenIdea(String username, String title, String description, String techStack, String timeline) {
+        java.sql.Timestamp deadline = null;
+        if (timeline != null && !timeline.trim().isEmpty()) {
+            long durationMs = 0;
+            String t = timeline.toLowerCase();
+            if (t.contains("day")) {
+                durationMs = 24L * 60 * 60 * 1000;
+            } else if (t.contains("week")) {
+                durationMs = 7L * 24 * 60 * 60 * 1000;
+            } else if (t.contains("month")) {
+                durationMs = 30L * 24 * 60 * 60 * 1000;
+            }
+            if (durationMs > 0) {
+                deadline = new java.sql.Timestamp(System.currentTimeMillis() + durationMs);
+            }
+        }
+
+        String query = "INSERT INTO chosen_ideas (username, idea_title, idea_description, tech_stack, deadline) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            
+             
             pstmt.setString(1, username);
             pstmt.setString(2, title);
             pstmt.setString(3, description);
+            pstmt.setString(4, techStack != null ? techStack : "");
+            pstmt.setTimestamp(5, deadline);
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
@@ -144,15 +181,31 @@ public class IdeaDAO {
     // --- GET SAVED IDEAS ---
     public List<String[]> getSavedIdeas(String username) {
         List<String[]> savedIdeas = new ArrayList<>();
-        String query = "SELECT idea_title, idea_description FROM chosen_ideas WHERE username = ? ORDER BY id DESC";
+        String query = "SELECT idea_title, idea_description, tech_stack, completed, deadline, completed_at, saved_at FROM chosen_ideas WHERE username = ? ORDER BY id DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            
+             
             pstmt.setString(1, username);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    savedIdeas.add(new String[]{rs.getString("idea_title"), rs.getString("idea_description")});
+                    java.sql.Timestamp deadlineTs = rs.getTimestamp("deadline");
+                    java.sql.Timestamp completedTs = rs.getTimestamp("completed_at");
+                    java.sql.Timestamp savedTs = rs.getTimestamp("saved_at");
+                    
+                    String deadlineStr = deadlineTs != null ? String.valueOf(deadlineTs.getTime()) : "";
+                    String completedStr = completedTs != null ? String.valueOf(completedTs.getTime()) : "";
+                    String savedStr = savedTs != null ? String.valueOf(savedTs.getTime()) : "";
+                    
+                    savedIdeas.add(new String[]{
+                        rs.getString("idea_title"),
+                        rs.getString("idea_description"),
+                        rs.getString("tech_stack"),
+                        String.valueOf(rs.getInt("completed")),
+                        deadlineStr,
+                        completedStr,
+                        savedStr
+                    });
                 }
             }
 
@@ -162,13 +215,30 @@ public class IdeaDAO {
         return savedIdeas;
     }
 
+    // --- COMPLETE PROJECT ---
+    public boolean completeProject(String username, String title) {
+        String query = "UPDATE chosen_ideas SET completed = 1, completed_at = CURRENT_TIMESTAMP WHERE username = ? AND idea_title = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+             
+            pstmt.setString(1, username);
+            pstmt.setString(2, title);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // --- DELETE SAVED IDEA ---
     public boolean deleteSavedIdea(String username, String title) {
         String query = "DELETE FROM chosen_ideas WHERE username = ? AND idea_title = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            
+             
             pstmt.setString(1, username);
             pstmt.setString(2, title);
 

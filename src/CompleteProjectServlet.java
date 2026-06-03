@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/SaveIdeaServlet")
-public class SaveIdeaServlet extends HttpServlet {
+@WebServlet("/CompleteProjectServlet")
+public class CompleteProjectServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private IdeaDAO ideaDAO;
 
@@ -18,38 +18,30 @@ public class SaveIdeaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        // 1. Check if user is securely logged in
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Error: You must be logged in to save ideas.");
+            response.getWriter().write("Error: Unauthorized");
             return;
         }
 
         String username = (String) session.getAttribute("user");
-
-        // 2. Get idea details from the request
         String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        String techStack = request.getParameter("techStack");
-        String timeline = request.getParameter("timeline");
 
-        if (title == null || description == null || title.trim().isEmpty()) {
+        if (title == null || title.trim().isEmpty()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Error: Missing title or description.");
+            response.getWriter().write("Error: Missing title");
             return;
         }
 
-        // 3. Save chosen idea to database (including tech stack and timeline to calculate deadlines)
-        boolean success = ideaDAO.saveChosenIdea(username, title, description, techStack, timeline);
+        boolean success = ideaDAO.completeProject(username, title.trim());
 
-        // 4. Return success or failure response
         if (success) {
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("Success");
         } else {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Error: Failed to save idea to database.");
+            response.getWriter().write("Error: Failed to mark complete");
         }
     }
 }

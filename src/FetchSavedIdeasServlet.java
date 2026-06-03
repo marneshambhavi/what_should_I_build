@@ -38,9 +38,14 @@ public class FetchSavedIdeasServlet extends HttpServlet {
         for (int i = 0; i < savedIdeas.size(); i++) {
             String[] idea = savedIdeas.get(i);
             json.append(String.format(
-                "{\"title\":\"%s\", \"description\":\"%s\"}",
+                "{\"title\":\"%s\", \"description\":\"%s\", \"tech_stack\":\"%s\", \"completed\":%s, \"deadline\":\"%s\", \"completed_at\":\"%s\", \"saved_at\":\"%s\"}",
                 escapeJson(idea[0]),
-                escapeJson(idea[1])
+                escapeJson(idea[1]),
+                escapeJson(idea[2]),
+                idea[3],
+                escapeJson(idea[4]),
+                escapeJson(idea[5]),
+                escapeJson(idea[6])
             ));
             if (i < savedIdeas.size() - 1) {
                 json.append(",");

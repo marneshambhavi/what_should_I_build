@@ -154,6 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams();
         params.append('title', currentIdeaTitle);
         params.append('description', currentIdeaDesc);
+        params.append('techStack', currentTech);
+        params.append('timeline', currentTimeline);
 
         fetch('SaveIdeaServlet', {
             method: 'POST',
