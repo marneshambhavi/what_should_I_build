@@ -2,7 +2,7 @@ body
 {
 margin:0;
 padding:0;
-height:100vh; /* Changed from 100% to 100vh to fill screen */
+min-height:100vh; /* min-height so body grows with content */
 
 font-family: 'Audiowide', sans-serif;
 }
@@ -15,11 +15,11 @@ font-family: 'Audiowide', sans-serif;
 .home-page
 {
 /* Using a relative path for the background image */
-background-image:url("../images/bgimage3.jpg");
+background-image:url("../images/bgimage10.png");
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
-height: 100%;
+min-height: 100vh; /* Fill full viewport height */
 width: 100%;
 display: flex;
 justify-content: center;
@@ -79,11 +79,11 @@ gap: 30px;
 /* ========================================= */
 .login-page
 {
-background-image:url("../images/bgimage4.jpg");
+background-image:url("../images/bgimage11.png");
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
-height: 100%;
+min-height: 100vh; /* Fill full viewport height */
 width: 100%;
 display: flex;
 justify-content: center;
@@ -141,15 +141,17 @@ align-items: center;
 
 .register-page
 {
-background-image:url("../images/bgimage4.jpg");
+background-image:url("../images/bgimage11.png");
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
-height: 100%;
+min-height: 100vh; /* Stretches image to cover full page, including content overflow */
 width: 100%;
 display: flex;
 justify-content: center;
 align-items: center;
+padding: 40px 0; /* Adds breathing room so content isn't clipped at edges */
+box-sizing: border-box;
 }
 .registration-form {
     display: flex;
