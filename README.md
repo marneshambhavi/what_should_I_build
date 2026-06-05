@@ -65,10 +65,9 @@ whatshouldibuild/
 ├── src/                  # Java Servlet source files
 │   ├── RegisterServlet.java
 │   ├── LoginServlet.java
-│   ├── SendOtpServlet.java
-│   ├── VerifyOtpServlet.java
+│   ├── SessionServlet.java
+│   ├── AchievementsServlet.java
 │   ├── DBConnection.java
-│   ├── EmailUtil.java
 │   └── ...
 ├── web/                  # Frontend files
 │   ├── css/
